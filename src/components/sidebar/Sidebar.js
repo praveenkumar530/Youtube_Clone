@@ -10,9 +10,11 @@ import {
     MdSentimentDissatisfied,
 } from 'react-icons/md'
 
-const Sidebar = () => {
+const Sidebar = ({ sidebar, handleToggleSideBar }) => {
     return (
-        <nav className="sidebar">
+        <nav className={sidebar ? 'sidebar open' : 'sidebar'}
+            onClick={() => handleToggleSideBar()}
+        >
             {/* <Link to='/'> */}
             <li>
                 <MdHome size={23} />
@@ -53,7 +55,7 @@ const Sidebar = () => {
             </li>
 
             <hr />
-        </nav>
+        </nav >
     )
 }
 

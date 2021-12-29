@@ -1,13 +1,12 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row , Container} from 'react-bootstrap';
 
 import CategoriesBar from "../../components/categoriesBar/CategoriesBar";
 import Video from '../../components/video/Video'
 
 const HomeScreen = () => {
     return (
-        <div>
-
+        <Container>
             <CategoriesBar />
             <Row >
 
@@ -20,8 +19,7 @@ const HomeScreen = () => {
                     ))
                 }
             </Row>
-
-        </div>
+        </Container>
     )
 }
 
