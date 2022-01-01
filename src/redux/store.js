@@ -3,11 +3,12 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import thunk from "redux-thunk";
 import authReducer from './reducers/auth.reducer';
-
+import { homeVideosReducer } from "./reducers/videos.reducer";
 
 
 const reducer = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    homeVideos: homeVideosReducer
 })
 
 
