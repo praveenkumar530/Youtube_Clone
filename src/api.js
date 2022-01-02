@@ -6,7 +6,8 @@ const request = axios.create({
     baseURL: "https://youtube.googleapis.com/youtube/v3/",
     params: {
         // key: process.env.REACT_YOUTUBE_API_KEY
-        key: 'AIzaSyCitEcdaW74r0W9AKEyJ_PaPjfgTKNIZ5k'
+        key: 'AIzaSyD68yHHaOoyEr1nD4OceKtQv-Y7i7ilysM'
+        // key: 'AIzaSyCitEcdaW74r0W9AKEyJ_PaPjfgTKNIZ5k'
     }
 })
 

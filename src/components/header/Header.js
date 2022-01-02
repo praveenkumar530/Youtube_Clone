@@ -3,9 +3,13 @@ import './_header.scss'
 import { FaBars } from 'react-icons/fa'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdNotifications, MdApps } from 'react-icons/md'
+import { useSelector } from 'react-redux'
 
 
 const Header = ({ handleToggleSideBar }) => {
+
+    const { user } = useSelector(state => state.auth)
+
     return (
         <div className="header">
             <FaBars className="header__menu" size={26} onClick={() => handleToggleSideBar()} />
@@ -25,7 +29,7 @@ const Header = ({ handleToggleSideBar }) => {
             <div className='header__icons'>
                 <MdNotifications size={28} />
                 <MdApps size={28} />
-                <img src="https://www.pngkey.com/png/detail/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png" alt='avatar' />
+                <img src={user?.photoURL} alt={user?.name} />
             </div>
         </div>
     )

@@ -4,7 +4,8 @@ const initialState = {
     videos: [],
     loading: false,
     error: '',
-    nextPageToken: null
+    nextPageToken: null,
+    activeCategory: 'All'
 
 }
 
@@ -20,13 +21,13 @@ export const homeVideosReducer = (prevState = initialState, action) => {
                 loading: true
             }
         case HOME_VIDEOS_SUCCESS:
-            console.log(payload)
-            console.log(prevState)
+
             return {
                 ...prevState,
-                videos: payload.videos,
+                videos: prevState.activeCategory === payload.category ? [...prevState.videos, ...payload.videos] : payload.videos,
                 nextPageToken: payload.nextPageToken,
-                loading: false
+                loading: false,
+                activeCategory: payload.category
             }
 
         case HOME_VIDEOS_FAIL:

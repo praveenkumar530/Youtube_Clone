@@ -1,25 +1,90 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './_video.scss'
 import { AiFillEye } from 'react-icons/ai'
+import request from '../../api'
+import moment from 'moment'
+import numeral from 'numeral'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
-const Video = () => {
+
+const Video = ({ video }) => {
+
+    const {
+        id,
+        snippet: {
+            publishedAt,
+            channelId,
+            title,
+            channelTitle,
+            thumbnails: {
+                medium
+            }
+        },
+    } = video
+
+    const [views, setViews] = useState(null)
+    const [duration, setDuration] = useState(null)
+    const [channelIcon, setChannelIcon] = useState(null)
+    const seconds = moment.duration(duration).asSeconds()
+    const _duration = moment.utc(seconds * 1000).format('mm:ss')
+
+    const _videoId = id?.videoId || id
+
+    useEffect(() => {
+        const get_video_details = async () => {
+            const {
+                data: { items },
+            } = await request('/videos', {
+                params: {
+                    part: 'contentDetails,statistics',
+                    id: _videoId,
+                },
+            })
+            setDuration(items[0].contentDetails.duration)
+            setViews(items[0].statistics.viewCount)
+        }
+        get_video_details()
+    }, [_videoId])
+
+
+    // call for channel thumbnail 
+    useEffect(() => {
+        const get_channel_icon = async () => {
+
+            const { data: {
+                items
+            } } = await request("/channels", {
+                params: {
+                    part: 'snippet',
+                    id: channelId
+                }
+            })
+            setChannelIcon(items[0].snippet.thumbnails.default)
+        }
+        get_channel_icon();
+    }, [channelId])
+
+
+
     return (
         <div className="video">
             <div className="video__top" >
-                <img src="https://i.ytimg.com/vi/tH93lLehjCs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDw11ncd06qi4f6q-KrN9-8OecxTg" alt="" />
-                <span className="duration">05:34</span>
+                {/* <img src={medium.url} alt={title} /> */}
+                <LazyLoadImage src={medium.url} effect='blur' />
+                <span className="duration">{_duration}</span>
             </div>
-            <div className="video__title" > this is an youtube tsjdflaskdjfslkdfsd  alskfj itle </div>
+            <div className="video__title" > {title} </div>
             <div className="video__details" >
                 <span >
-                    <AiFillEye />5m views •
+                    <AiFillEye />{numeral(views).format('0.a')} views •
                 </span>
-                <span >5 days ago</span>
+                <span > {moment(publishedAt).fromNow()}</span>
             </div>
             <div className="video__channel" >
 
-                <img src="https://yt3.ggpht.com/3t4lfPe19nwe2Mrs8HEFF4VzV27yKal--i70lxjRB4olUtqJmp-vXH_o9U5z-vtIg9Fqtw7reA=s68-c-k-c0x00ffffff-no-rj" alt="" />
-                <p>channel title</p>
+                {/* <img src={channelIcon?.url} alt={channelTitle} /> */}
+                <LazyLoadImage src={channelIcon?.url} effect='blur' />
+                <p>{channelTitle}</p>
             </div>
 
         </div>

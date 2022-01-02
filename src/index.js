@@ -7,11 +7,13 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './_base.scss'
 import store from './redux/store'
+import 'react-lazy-load-image-component/src/effects/blur.css'
+
 
 ReactDOM.render(
     <Provider store={store}>
         <Router >
             <App />
-        </Router>
+        </Router>   
     </Provider>
     , document.getElementById('root'))
