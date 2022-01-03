@@ -1,4 +1,4 @@
-import { HOME_VIDEOS_SUCCESS, HOME_VIDEOS_REQUEST, HOME_VIDEOS_FAIL } from "../actionTypes"
+import { HOME_VIDEOS_SUCCESS, HOME_VIDEOS_REQUEST, HOME_VIDEOS_FAIL } from "../actionType"
 
 const initialState = {
     videos: [],

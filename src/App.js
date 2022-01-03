@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch, useHistory } from 're
 import HomeScreen from './screens/homeScreen/HomeScreen'
 import LoginScreen from './screens/loginScreen/LoginScreen'
 import './_app.scss'
+import WatchScreen from './screens/watchScreen/WatchScreen'
 
 
 const Layout = ({ children }) => {
@@ -54,6 +55,11 @@ const App = () => {
             <Route path="/search" >
                 <Layout >
                     <h1 > search </h1>
+                </Layout>
+            </Route>
+            <Route path="/watch/:id" >
+                <Layout >
+                    <WatchScreen />
                 </Layout>
             </Route>
             <Route >
